@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <img alt="Vue logo" src="@/assets/logo.png" />
     <h1>Test Page - {{ state.name }} - {{ state.counter }}</h1>
     <button @click="cykaBlyat()">Click me</button>
 

@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "eslint.alwaysShowStatus": true,
+        "vetur.format.defaultFormatter.html": "prettier",
+        "javascript.referencesCodeLens.enabled": true,
+        "npm-intellisense.packageSubfoldersIntellisense": true
+    }
+}
