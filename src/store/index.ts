@@ -1,25 +1,33 @@
 import Vue from 'vue';
-import Vuex from 'vuex';
-import { createDirectStore } from 'direct-vuex';
-import testmodule from './testmodule';
+import Vuex, { Store } from 'vuex';
+import { getStoreAccessors, GetterHandler, MutationHandlerWithPayload } from 'vuex-typescript';
+import { ClientStoreModule } from './classmodule/module';
 
-Vue.use(Vuex);
+// eslint-disable-next-line
+export interface RootState {}
 
-const { store, rootActionContext, moduleActionContext } = createDirectStore({
-  modules: {
-    testmodule,
-  },
-});
+export abstract class BaseStoreService<T> {
+  private store: Store<RootState>;
 
-// The following exports will be used to enable types in the implementation of actions
-export { rootActionContext, moduleActionContext };
+  protected constructor(store: Store<RootState>) {
+    this.store = store;
+  }
 
-// The following lines enable types in the injected store '$store'.
-export type AppStore = typeof store;
-declare module 'vuex' {
-  interface Store<S> {
-    direct: AppStore;
+  protected storeApi = getStoreAccessors<T, RootState>('');
+
+  protected get<TResult>(handler: GetterHandler<T, RootState, TResult>): TResult {
+    return this.storeApi.read<TResult>(handler)(this.store);
+  }
+
+  protected commit<TPayload>(handler: MutationHandlerWithPayload<T, TPayload>, payload: TPayload) {
+    this.storeApi.commit(handler)(this.store, payload);
   }
 }
 
-export default store;
+Vue.use(Vuex);
+
+export default new Vuex.Store<RootState>({
+  modules: {
+    clientStore: ClientStoreModule,
+  },
+});

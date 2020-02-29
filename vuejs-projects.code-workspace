@@ -8,6 +8,7 @@
         "eslint.alwaysShowStatus": true,
         "vetur.format.defaultFormatter.html": "prettier",
         "javascript.referencesCodeLens.enabled": true,
-        "npm-intellisense.packageSubfoldersIntellisense": true
+        "npm-intellisense.packageSubfoldersIntellisense": true,
+        "editor.tabSize": 2
     }
 }

@@ -1,7 +1,13 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="@/assets/logo.png" />
-    <h1>Test Page - {{ state.name }} - {{ state.counter }}</h1>
+
+    <h1>Test Page</h1>
+
+    <ul v-for="client in state" :key="client">
+      <li>{{ client }}</li>
+    </ul>
+
     <button @click="cykaBlyat()">Click me</button>
 
     <br /><br /><br /><br />
@@ -11,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import store from '@/store';
+import store from '@/store/classmodule';
 
 export default {
   name: 'Home',
@@ -20,12 +26,20 @@ export default {
   },
   computed: {
     state() {
-      return store.state.testmodule;
+      return store.clients;
     },
   },
   methods: {
     async cykaBlyat() {
-      await store.dispatch.testmodule.increment();
+      const name =
+        Math.random()
+          .toString(36)
+          .substring(2, 15) +
+        Math.random()
+          .toString(36)
+          .substring(2, 15);
+
+      await store.addClient(name);
     },
   },
 };
